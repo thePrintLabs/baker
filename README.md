@@ -11,7 +11,7 @@ thePrintLabs Baker branch is aimed at updating and adding features the Baker Fra
 
 CHANGELOG
 ---------
-* (26/09/2014)
+(26/09/2014)
 * Added support for iOS8
 * Project converted to use ARC
 * Updated project settings for Xcode 6
