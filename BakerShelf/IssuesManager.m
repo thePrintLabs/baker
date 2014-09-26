@@ -45,7 +45,6 @@
 
     if (self) {
         self.issues = nil;
-
         NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         self.shelfManifestPath = [cachePath stringByAppendingPathComponent:@"shelf.json"];
     }
@@ -77,7 +76,7 @@
             
             NSMutableArray *tmpIssues = [NSMutableArray array];
             [jsonArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                BakerIssue *issue = [[[BakerIssue alloc] initWithIssueData:obj] autorelease];
+                BakerIssue *issue = [[BakerIssue alloc] initWithIssueData:obj];
                 [tmpIssues addObject:issue];
             }];
             
@@ -190,9 +189,9 @@
     for (NSString *file in dirContents) {
         NSString *manifestFile = [booksDir stringByAppendingPathComponent:[file stringByAppendingPathComponent:@"book.json"]];
         if ([localFileManager fileExistsAtPath:manifestFile]) {
-            BakerBook *book = [[[BakerBook alloc] initWithBookPath:[booksDir stringByAppendingPathComponent:file] bundled:YES] autorelease];
+            BakerBook *book = [[BakerBook alloc] initWithBookPath:[booksDir stringByAppendingPathComponent:file] bundled:YES];
             if (book) {
-                BakerIssue *issue = [[[BakerIssue alloc] initWithBakerBook:book] autorelease];
+                BakerIssue *issue = [[BakerIssue alloc] initWithBakerBook:book];
                 [booksList addObject:issue];
             } else {
                 NSLog(@"[BakerShelf] ERROR: Book %@ could not be initialized. Is 'book.json' correct and valid?", file);
@@ -205,11 +204,5 @@
     return [NSArray arrayWithArray:booksList];
 }
 
--(void)dealloc {
-    [issues release];
-    [shelfManifestPath release];
-
-    [super dealloc];
-}
 
 @end

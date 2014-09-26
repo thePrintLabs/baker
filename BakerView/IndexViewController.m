@@ -54,13 +54,6 @@
     }
     return self;
 }
-- (void)dealloc
-{
-    [book release];
-    [indexScrollView release];
-
-    [super dealloc];
-}
 
 #pragma mark - View lifecycle
 
@@ -79,11 +72,10 @@
     self.view = webView;
     for (UIView *subView in webView.subviews) {
         if ([subView isKindOfClass:[UIScrollView class]]) {
-            indexScrollView = [(UIScrollView *)subView retain];
+            indexScrollView = (UIScrollView *)subView;
             break;
         }
     }
-    [webView release];
 
     [self loadContent];
 }
@@ -94,13 +86,19 @@
 
 - (void)setPageSizeForOrientation:(UIInterfaceOrientation)orientation {
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
-
+    
+    //iOS 8 update.
+    
     if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-        pageWidth = screenBounds.size.height;
-        pageHeight = screenBounds.size.width;
+        //pageWidth = screenBounds.size.height;
+        //pageHeight = screenBounds.size.width;
+        pageWidth = MAX(screenBounds.size.height, screenBounds.size.width);
+        pageHeight = MIN(screenBounds.size.height, screenBounds.size.width);
     } else {
-        pageWidth = screenBounds.size.width;
-        pageHeight = screenBounds.size.height;
+        //pageWidth = screenBounds.size.width;
+        //pageHeight = screenBounds.size.height;
+        pageWidth = MIN(screenBounds.size.height, screenBounds.size.width);
+        pageHeight = MAX(screenBounds.size.height, screenBounds.size.width);
     }
 
     NSLog(@"[IndexView] Set IndexView size to %dx%d", pageWidth, pageHeight);

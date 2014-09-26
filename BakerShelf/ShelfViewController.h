@@ -45,8 +45,7 @@
     BakerAPI *api;
     IssuesManager *issuesManager;
     NSMutableArray *notRecognisedTransactions;
-    __weak UIPopoverController *infoPopover;
-
+    
     #ifdef BAKER_NEWSSTAND
     PurchasesManager *purchasesManager;
     #endif
@@ -55,13 +54,14 @@
 @property (copy, nonatomic) NSArray *issues;
 @property (copy, nonatomic) NSArray *supportedOrientation;
 
-@property (retain, nonatomic) NSMutableArray *issueViewControllers;
-@property (retain, nonatomic) ShelfStatus *shelfStatus;
+@property (strong, nonatomic) NSMutableArray *issueViewControllers;
+@property (strong, nonatomic) ShelfStatus *shelfStatus;
 
 @property (strong, nonatomic) UICollectionView *gridView;
 @property (strong, nonatomic) UIImageView *background;
 @property (strong, nonatomic) UIBarButtonItem *refreshButton;
 @property (strong, nonatomic) UIBarButtonItem *subscribeButton;
+@property (strong, nonatomic) UIPopoverController *infoPopover;
 
 @property (strong, nonatomic) UIActionSheet *subscriptionsActionSheet;
 @property (strong, nonatomic) NSArray *subscriptionsActionSheetActions;

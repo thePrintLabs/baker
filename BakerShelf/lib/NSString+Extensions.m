@@ -58,6 +58,7 @@
 + (NSString *)stringFromInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     switch (orientation) {
+        default:
 		case UIInterfaceOrientationPortrait:           return @"UIInterfaceOrientationPortrait";
 		case UIInterfaceOrientationPortraitUpsideDown: return @"UIInterfaceOrientationPortraitUpsideDown";
 		case UIInterfaceOrientationLandscapeLeft:      return @"UIInterfaceOrientationLandscapeLeft";
