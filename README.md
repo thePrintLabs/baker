@@ -3,126 +3,15 @@ Project Baker
 
 **The HTML5 ebook framework to publish interactive books & magazines on iPad & iPhone using simply open web standards**
 <http://bakerframework.com>
+<https://github.com/bakerframework/baker/>
 
-
-
-WHAT IS BAKER
+WHAT IS THEPRINTLABS BAKER
 -------------
-
-To this day, ebooks have been limited by an old standard created in the pre-Kindle and pre-iPad era.
-Baker is the first stepping stone to show that we could already be using the powerful HTML5 language
-to create books with real typography, real layouts and high-quality design.
-
-
-
-HOW TO USE BAKER
-----------------
-
-Creating an ebook in HTML5 to be used with Baker is a three-steps operation.
-It's easier done than said! ;)
-
-1. DESIGN
-   * Create you publication as one or more **HTML5 files** like a standalone website
-   * Design your publication to fit multiple screen (using CSS media-queries)
-   * You can use **any** feature in WebKit: HTML5, CSS3, JavaScript (video, audio, fonts, jQuery, Google Maps, etc)
-   * On iPad/iPhone you can constrain the height to match the page size or make it scrollable if you need longer pages
-   * For best results, consider having 1 HTML for each chapter/section/article and use the native vertical scrolling.
-   * ...remember: it's a publication. If you want to build an app, check [PhoneGap](http://www.phonegap.com/). ;)
-
-2. PACKAGE
-   * The publication must be contained in a single Hpub file
-   * Each chapter/section/article (horizontally swiped on the iPad) should be a single HTML file inside the Hpub
-   * Create a Hpub book.json file: title, author, pages, etc. (see below)
-   * All the assets must be contained within the publication folder or its subfolders
-   * Check the example book from the website for an hands-on example
-   * See either [Standalone tutorial](https://github.com/bakerframework/baker/wiki/Tutorial-for-Standalone-App) or [Newsstand tutorial for free subscriptions](https://github.com/bakerframework/baker/wiki/Tutorial-for-Newsstand-with-Free-issues) or [Newsstand tutorial for paid subscriptions](https://github.com/bakerframework/baker/wiki/Tutorial-for-Newsstand-with-In-App-Purchase) for more information
-
-3. PUBLISH
-   * Download the Baker Framework Xcode project from http://bakerframework.com (or GitHub).
-   * Download Xcode from the Mac App Store or from the Apple Developer website.
-   * Decide if you want to release using the [Standalone tutorial](https://github.com/bakerframework/baker/wiki/Tutorial-for-Standalone-App) or [Newsstand tutorial](https://github.com/bakerframework/baker/wiki/Tutorial-for-Newsstand-with-Free-issues) mode and follow the tutorial accordingly.
-   * Select the Baker Scheme (Simulator or Device) from the toolbar dropdown.
-   * Run and check that everything works correctly _both_ on simulator and device.
-   * Check [this page](https://github.com/bakerframework/baker/wiki/Problems-and-Debugging) if you encounter any problem.
-   * Create an Apple iPhone Developer account to publish on the App Store.
-   * If you are using Newsstand, follow the instructions on the Apple iPhone Developer website to create either your free subscription or paid subscription / issue In App Purchases
-   * Follow the instructions on the Apple iPhone Developer website to submit your book to the app store.
-
-
-BOOK.JSON
----------
-
-This is an example of a minimal book.json file:
-
-```json
-{
-  "title": "The Study in Scarlet",
-  "author": "Arthur Conan Doyle",
-  "url": "book://bakerframework.com/books/arthurconandoyle-thestudyinscarlet",
-
-  "contents": [
-    "Article-Lorem.html",
-    "Article-Ipsum.html",
-    "Article-Gaium.html",
-    "Article-Sit.html",
-    "Article-Amet.html"
-  ]
-}
-```
-
-For all the details and the advanced options, check the [Hpub specification on the wiki](https://github.com/bakerframework/baker/wiki/hpub-specification).
-
-
-SHELF.JSON
-----------
-
-This is an example of the shelf.json file that is downloaded by Baker in Newsstand mode to check the available publications:
-
-```json
-[
-  {
-    "name": "a-study-in-scarlet",
-    "title": "A Study in Scarlet",
-    "info": "The original masterpiece by Sir Arthur Conan Doyle",
-    "date": "1887-10-10 10:10:10",
-    "cover": "http://bakerframework.com/newsstand-books/a-study-in-scarlet.png",
-    "url": "http://bakerframework.com/newsstand-books/a-study-in-scarlet.hpub",
-    "product_id": "com.bakerframework.Baker.issues.a_study_in_scarlet"
-  }
-]
-```
-
-For all the details on how to create and use it, check the [Newsstand publications](https://github.com/bakerframework/baker/wiki/4.0-tutorial-for-Newsstand).
-
-
-CREATE A BOOK FOR BOTH IPAD AND IPHONE
---------------------------------------
-
-With Baker Framework you can create books and magazines for the iPhone too.
-
-To compile your application for iPhone follow these steps:
-
-* Open the Baker Framework Xcode project with Xcode.
-* Click on the "Baker" project in the leftmost column of the project navigator.
-* On the column just left, click under Projects on "Baker"
-* In the "Build Settings" tab locate the section Deployment for the configuration you would like to use for compiling.
-* Under the Deployment section change the Target Device Family entry to match the devices you would like to target (only iPhone, only iPad or iPhone/iPad).
-* Update your publications to manage multiple orientations (using CSS media-queries).
-* Compile and test the application.
-
-
-
-BUGS AND FEEDBACK
------------------
-
-* Submit your bugs here: <http://github.com/bakerframework/baker/issues>
-* Give us your feedback at: <info@bakerframework.com>
-* Follow us on Twitter: <http://twitter.com/BakerFramework>
-
-
+thePrintLabs Baker branch is aimed at updating and adding features the Baker Framework for iOS. See the Project Baker page for full details.
 
 CHANGELOG
 ---------
+<<<<<<< HEAD
 
 * **4.3** (in development)
   * Added support for iOS 8, iOS 8.1, iPhone 6 and iPhone 6 Plus
@@ -250,12 +139,17 @@ CHANGELOG
 * **1.0** (03/11/2010)
   * First release
 
+=======
+* (26/09/2014)
+* Added support for iOS8
+* Project converted to use ARC
+* Updated project settings for Xcode 6
+>>>>>>> Added iOS8 support and ARC enabled
 
 LICENSE
 -------
 
-  _Copyright (C) 2010-2013, Davide Casali, Marco Colombo, Alessandro Morandi_
-  _Licensed under **BSD Opensource License** (free for personal and commercial use)_
-
+_Copyright (C) 2010-2013, Davide Casali, Marco Colombo, Alessandro Morandi_
+_Licensed under **BSD Opensource License** (free for personal and commercial use)_
 
 > _Elementary, my dear Watson._
