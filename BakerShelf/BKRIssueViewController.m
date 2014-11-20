@@ -93,7 +93,10 @@
     self.issueCover.layer.shadowOffset = CGSizeMake(0, 2);
     self.issueCover.layer.shouldRasterize = YES;
     self.issueCover.layer.rasterizationScale = [UIScreen mainScreen].scale;
-
+    
+    self.issueCover.layer.borderWidth = [BKRSettings sharedSettings].issuesCoverBorderSize;
+    self.issueCover.layer.borderColor = [UIColor bkrColorWithHexString:[BKRSettings sharedSettings].issuesCoverBorderColor].CGColor;
+    
     [self.issueCover addTarget:self action:@selector(actionButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.issueCover];
 
@@ -226,6 +229,9 @@
         self.actionButton.frame = CGRectMake(ui.contentOffset, heightOffset, 110, 30);
     } else if ([status isEqualToString:@"downloaded"] || [status isEqualToString:@"bundled"]) {
         self.actionButton.frame = CGRectMake(ui.contentOffset, heightOffset, 80, 30);
+    } else if ([status isEqualToString:@"updatable"]) {
+        self.actionButton.frame = CGRectMake(ui.contentOffset, heightOffset, 80, 30);
+        [self.actionButton setTitle:NSLocalizedString(@"ACTION_UPDATE_TEXT", nil) forState:UIControlStateNormal];
     }
     self.actionButton.titleLabel.font = actionFont;
 
@@ -304,6 +310,15 @@
         self.archiveButton.hidden = YES;
         self.loadingLabel.hidden  = YES;
         self.progressBar.hidden   = YES;
+    } else if ([status isEqualToString:@"updatable"]) {
+        NSLog(@"[BakerShelf] '%@' is Ready to be Update.", self.issue.ID);
+        [self.actionButton setTitle:NSLocalizedString(@"ACTION_UPDATE_TEXT", nil) forState:UIControlStateNormal];
+        [self.spinner stopAnimating];
+        
+        self.actionButton.hidden = NO;
+        self.archiveButton.hidden = NO;
+        self.loadingLabel.hidden = YES;
+        self.progressBar.hidden = YES;
     } else if ([status isEqualToString:@"opening"]) {
         [self.spinner startAnimating];
 
@@ -375,11 +390,18 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"BakerIssuePurchase" object:self]; // -> Baker Analytics Event
             [self buy];
         }
+    } else if ([status isEqualToString:@"updatable"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BakerIssueUpdate" object:self]; // -> Baker Analytics Event
+        [self update];
     }
 }
 
 - (void)download {
     [self.issue download];
+}
+
+- (void)update {
+    [self.issue update];
 }
 
 - (void)buy {
@@ -549,7 +571,7 @@
 
         nkIssue = [nkLib addIssueWithName:name date:date];
         self.issue.path = [[nkIssue contentURL] path];
-
+        [self.issue removeIssueFromIssuesList];
         [self refresh];
     }
 }

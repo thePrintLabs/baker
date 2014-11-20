@@ -14,6 +14,8 @@ CHANGELOG
 (20/11/2014)
 
 * Updated to official version 4.3
+* Support for updated editions based on publish date and cached content purge
+* Border setting for issue covers
 
 (26/09/2014)
 

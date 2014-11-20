@@ -31,7 +31,6 @@
 //
 
 #import "BKRIssuesManager.h"
-#import "BKRIssue.h"
 #import "BKRUtils.h"
 #import "BKRBakerAPI.h"
 #import "BKRSettings.h"
@@ -45,6 +44,9 @@
     if (self) {
         _issues            = nil;
         _shelfManifestPath = [self.bkrCachePath stringByAppendingPathComponent:@"shelf.json"];
+        _issuesListPath    = [self.bkrDocumentPath stringByAppendingPathComponent:@"issues.plist"];
+        
+        [self initIssuesListFile];
     }
 
     return self;
@@ -216,6 +218,47 @@
 
 - (BKRIssue*)latestIssue {
     return self.issues[0];
+}
+
+- (void)initIssuesListFile {
+    NSError *error = nil;
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath: _issuesListPath]) {
+        NSString *listBundle = [[NSBundle mainBundle] pathForResource:@"issues" ofType:@"plist"];
+        [fm copyItemAtPath:listBundle toPath:_issuesListPath error:&error];
+        if (error != nil) {
+            NSLog(@"[IssuesManager] Error copying issues.json: %@", error);
+        }
+    }
+}
+
+- (NSDictionary *)findInIssuesList:(NSString*)name {
+    NSDictionary *data = nil;
+    NSDictionary *issues = [NSDictionary dictionaryWithContentsOfFile:_issuesListPath];
+    if (issues) {
+        data = [issues objectForKey:name];
+    }
+    return data;
+}
+
+- (BOOL)addToIssuesList:(NSString *)name withData:(NSDictionary*)data {
+    NSMutableDictionary *issues = [[NSMutableDictionary alloc] initWithContentsOfFile:_issuesListPath];
+    if (issues) {
+        [issues setValue:data forKey:name];
+        [issues writeToFile:_issuesListPath atomically:YES];
+        return TRUE;
+    }
+    return FALSE;
+}
+
+- (BOOL)removeFromIssuesList:(NSString*)name {
+    NSMutableDictionary *issues = [[NSMutableDictionary alloc] initWithContentsOfFile:_issuesListPath];
+    [issues removeObjectForKey:name];
+    if (issues) {
+        [issues writeToFile:_issuesListPath atomically:YES];
+        return TRUE;
+    }
+    return FALSE;
 }
 
 + (NSArray*)localBooksList {

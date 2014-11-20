@@ -76,8 +76,11 @@
 @property (nonatomic, readonly) NSArray *autoRenewableSubscriptionProductIds;
 
 
+// Cover for issues in the shelf
 // Background color for issues cover (before downloading the actual cover)
 @property (nonatomic, readonly) NSString *issuesCoverBackgroundColor;
+@property (nonatomic, readonly) double issuesCoverBorderSize;
+@property (nonatomic, readonly) NSString *issuesCoverBorderColor;
 
 // Title for issues in the shelf
 @property (nonatomic, readonly) NSString *issuesTitleFont;

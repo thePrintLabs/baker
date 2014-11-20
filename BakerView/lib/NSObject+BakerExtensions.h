@@ -35,5 +35,5 @@
 @interface NSObject (BakerExtensions)
 
 - (NSString*)bkrCachePath;
-
+- (NSString*)bkrDocumentPath;
 @end

@@ -47,6 +47,7 @@ typedef enum transientStates {
 
 @interface BKRIssue : NSObject <NSURLConnectionDownloadDelegate> {
     BKRPurchasesManager *purchasesManager;
+    
 }
 
 @property (nonatomic, copy) NSString *ID;
@@ -56,6 +57,9 @@ typedef enum transientStates {
 @property (nonatomic, copy) NSURL *url;
 @property (nonatomic, copy) NSString *path;
 @property (nonatomic, copy) NSArray *categories;
+
+@property (nonatomic, assign) BOOL updatable;
+@property (nonatomic, copy) NSDate *updatedDate;
 
 @property (nonatomic, copy) NSString *coverPath;
 @property (nonatomic, copy) NSURL *coverURL;
@@ -81,4 +85,6 @@ typedef enum transientStates {
 - (void)download;
 - (void)downloadWithAsset:(NKAssetDownload*)asset;
 
+- (void)update;
+- (void)removeIssueFromIssuesList;
 @end

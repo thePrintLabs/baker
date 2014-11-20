@@ -40,6 +40,8 @@
 @property (nonatomic, strong) NSString *shelfManifestPath;
 @property (nonatomic, copy) NSArray *categories;
 
+@property (nonatomic, strong) NSString *issuesListPath;
+
 #pragma mark - Singleton
 
 + (BKRIssuesManager*)sharedInstance;
@@ -49,5 +51,9 @@
 - (BOOL)hasProductIDs;
 - (BKRIssue*)latestIssue;
 + (NSArray*)localBooksList;
+
+- (NSDictionary *)findInIssuesList:(NSString *)name;
+- (BOOL)addToIssuesList:(NSString *)name withData:(NSDictionary *)data;
+- (BOOL)removeFromIssuesList:(NSString *)name;
 
 @end

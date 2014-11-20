@@ -40,6 +40,8 @@
 #import "NSURL+BakerExtensions.h"
 #import "NSObject+BakerExtensions.h"
 
+#import "BKRIssuesManager.h"
+
 @implementation BKRIssue
 
 #pragma mark - Initialization
@@ -96,6 +98,12 @@
         if (issueData[@"product_id"] != [NSNull null]) {
             self.productID = issueData[@"product_id"];
         }
+        
+        if (issueData[@"updated_date"] != [NSNull null]) {
+            self.updatedDate = [BKRUtils dateWithFormattedString:issueData[@"updated_date"]];
+            [self checkUpdate:self.ID];
+        }
+        
         self.price = nil;
 
         purchasesManager = [BKRPurchasesManager sharedInstance];
@@ -151,6 +159,38 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:self.notificationDownloadStartedName object:self userInfo:nil];
 }
 
+- (void)update {
+    BKRReachability* reach = [BKRReachability reachabilityWithHostname:@"www.google.com"];
+    if ([reach isReachable]) {
+        BKRBakerAPI *api = [BKRBakerAPI sharedInstance];
+        NSURLRequest *req = [api requestForURL:self.url method:@"GET"];
+        
+        NKLibrary *nkLib = [NKLibrary sharedLibrary];
+        NKIssue *nkIssue = [nkLib issueWithName:self.ID];
+        
+        NSString *assetsPath = [[nkIssue contentURL] path];
+        NKAssetDownload *assetDownload = [nkIssue addAssetWithRequest:req];
+        [self removeIssueAssets:assetsPath];
+        [self downloadWithAsset:assetDownload];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:self.notificationDownloadErrorName object:self userInfo:nil];
+    }
+}
+
+- (void)removeIssueAssets:(NSString*)assetsPath {
+    BOOL res;
+    NSError *error = nil;
+    NSString *file = nil;
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *en = [fm enumeratorAtPath:assetsPath];
+    while (file = [en nextObject]) {
+        res = [fm removeItemAtPath:[self.path stringByAppendingPathComponent:file] error:&error];
+        if (!res && error) {
+            NSLog(@"[BakerShelf] Newsstand - Error removing issue assets: %@", error);
+        }
+    }
+}
+
 #pragma mark - Newsstand download management
 
 - (void)connection:(NSURLConnection*)connection didWriteData:(long long)bytesWritten totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes {
@@ -195,6 +235,7 @@
         }
 
         if (unzipSuccessful) {
+            [self addIssueToIssuesList];
             // Notification and UI update have to be handled on the main thread
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:self.notificationDownloadFinishedName object:self userInfo:nil];
@@ -276,12 +317,47 @@
             } else {
                 return @"unpriced";
             }
+        } else if ( [nkIssueStatus isEqualToString:@"downloaded"] && self.updatable ) {
+            return @"updatable";
         } else {
             return nkIssueStatus;
         }
     } else {
         return @"bundled";
     }
+}
+
+# pragma mark update managment
+
+- (void)checkUpdate:(NSString *)name {
+    self.updatable = FALSE;
+    NKIssue *nkIssue = [[NKLibrary sharedLibrary] issueWithName:name];
+    if (nkIssue.status == NKIssueContentStatusAvailable) {
+        BKRIssuesManager *issuesManager = [BKRIssuesManager sharedInstance];
+        NSDictionary *issueData = [issuesManager findInIssuesList:name];
+        if (issueData != nil) {
+            NSDate *oldUpdatedDate = [issueData objectForKey:@"updated_date"];
+            if (oldUpdatedDate != nil && [oldUpdatedDate compare:self.updatedDate] == NSOrderedAscending) {
+                self.updatable = TRUE;
+            }
+        }
+    }
+}
+
+- (void)addIssueToIssuesList {
+    self.updatable = FALSE;
+    // Now it takes only the updated date
+    if (self.updatedDate) {
+        NSDictionary *issueData = [NSDictionary dictionaryWithObjectsAndKeys:self.updatedDate, @"updated_date", nil];
+        BKRIssuesManager *issuesManager = [BKRIssuesManager sharedInstance];
+        [issuesManager addToIssuesList:self.ID withData:issueData];
+    }
+}
+
+- (void)removeIssueFromIssuesList {
+    self.updatable = FALSE;
+    BKRIssuesManager *issuesManager = [BKRIssuesManager sharedInstance];
+    [issuesManager removeFromIssuesList:self.ID];
 }
 
 @end

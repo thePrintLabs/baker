@@ -79,6 +79,8 @@
         _autoRenewableSubscriptionProductIds = [self arraySettingForKey:@"autoRenewableSubscriptionProductIds" withDefault:@[]];
 
         _issuesCoverBackgroundColor          = [self stringSettingForKey:@"issuesCoverBackgroundColor" withDefault:@"#ffffff"];
+        _issuesCoverBorderColor              = [self stringSettingForKey:@"issuesCoverBorderColor" withDefault:@"#000000"];
+        _issuesCoverBorderSize               = [self doubleSettingForKey:@"issuesCoverBorderSize" withDefault:0];
 
         _issuesTitleFont                     = [self stringSettingForKey:@"issuesTitleFont" withDefault:@"Helvetica"];
         _issuesTitleFontSize                 = [self intSettingForKey:@"issuesTitleFontSize" withDefault:15];
