@@ -11,6 +11,7 @@ thePrintLabs Baker branch is aimed at updating and adding features the Baker Fra
 
 CHANGELOG
 ---------
+<<<<<<< HEAD
 (20/11/2014)
 
 * Updated to official version 4.3
@@ -21,6 +22,12 @@ CHANGELOG
 * Project converted to use ARC
 * Updated project settings for Xcode 6
 
+=======
+(26/09/2014)
+* Added support for iOS8
+* Project converted to use ARC
+* Updated project settings for Xcode 6
+>>>>>>> 13694fc37b61e26bc3f79eec14e611bd883910c9
 
 LICENSE
 -------
