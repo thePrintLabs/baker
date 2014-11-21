@@ -77,7 +77,13 @@
         _postApnsTokenUrl                    = [self stringSettingForKey:@"postApnsTokenUrl" withDefault:@""];
         _freeSubscriptionProductId           = [self stringSettingForKey:@"freeSubscriptionProductId" withDefault:@""];
         _autoRenewableSubscriptionProductIds = [self arraySettingForKey:@"autoRenewableSubscriptionProductIds" withDefault:@[]];
-
+        
+        _navigationBarColor                  = [self stringSettingForKey:@"navigationBarColor" withDefault:@"#bc242a"];
+        _navigationBarBackgroundColor        = [self stringSettingForKey:@"navigationBarBackgroundColor" withDefault:@"#ffffff"];
+        _navigationBarTitleFont              = [self stringSettingForKey:@"navigationBarTitleFont" withDefault:@"Helvetica"];
+        _navigationBarTitleFontSize          = [self intSettingForKey:@"navigationBarTitleFontSize" withDefault:15];
+        _navigationBarTitleColor             = [self stringSettingForKey:@"navigationBarTitleColor" withDefault:@"#000000"];
+        
         _issuesCoverBackgroundColor          = [self stringSettingForKey:@"issuesCoverBackgroundColor" withDefault:@"#ffffff"];
         _issuesCoverBorderColor              = [self stringSettingForKey:@"issuesCoverBorderColor" withDefault:@"#000000"];
         _issuesCoverBorderSize               = [self doubleSettingForKey:@"issuesCoverBorderSize" withDefault:0];

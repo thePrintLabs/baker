@@ -134,9 +134,10 @@
 
 - (void)configureNavigationBar {
     BKRCustomNavigationBar *navigationBar = (BKRCustomNavigationBar*)self.rootNavigationController.navigationBar;
-    navigationBar.tintColor           = [UIColor bkrColorWithHexString:[BKRSettings sharedSettings].issuesActionBackgroundColor];
-    navigationBar.barTintColor        = [UIColor bkrColorWithHexString:@"ffffff"];
-    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor bkrColorWithHexString:@"000000"]};
+    navigationBar.tintColor           = [UIColor bkrColorWithHexString:[BKRSettings sharedSettings].navigationBarColor];
+    navigationBar.barTintColor        = [UIColor bkrColorWithHexString:[BKRSettings sharedSettings].navigationBarBackgroundColor];
+    navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor bkrColorWithHexString:[BKRSettings sharedSettings].navigationBarTitleColor],
+                                          NSFontAttributeName:[UIFont fontWithName:[BKRSettings sharedSettings].navigationBarTitleFont size:[BKRSettings sharedSettings].navigationBarTitleFontSize]};
     [navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation-bar-bg"] forBarMetrics:UIBarMetricsDefault];
 }
 

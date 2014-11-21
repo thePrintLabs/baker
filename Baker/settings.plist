@@ -89,5 +89,15 @@
 	<string>#929292</string>
 	<key>issuesProgressbarTintColor</key>
 	<string>#bc242a</string>
+	<key>navigationBarColor</key>
+	<string>#bc242a</string>
+	<key>navigationBarBackgroundColor</key>
+	<string>#ffffff</string>
+	<key>navigationBarTitleFont</key>
+	<string>Helvetica</string>
+	<key>navigationBarTitleFontSize</key>
+	<string>15</string>
+	<key>navigationBarTitleColor</key>
+	<string>#000000</string>
 </dict>
 </plist>

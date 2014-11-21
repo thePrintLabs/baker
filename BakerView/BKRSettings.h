@@ -75,6 +75,12 @@
 // This constant identifies one or more auto-renewable subscriptions.
 @property (nonatomic, readonly) NSArray *autoRenewableSubscriptionProductIds;
 
+// Navigation bar
+@property (nonatomic, readonly) NSString *navigationBarBackgroundColor;
+@property (nonatomic, readonly) NSString *navigationBarColor;
+@property (nonatomic, readonly) NSString *navigationBarTitleFont;
+@property (nonatomic, readonly) int navigationBarTitleFontSize;
+@property (nonatomic, readonly) NSString *navigationBarTitleColor;
 
 // Cover for issues in the shelf
 // Background color for issues cover (before downloading the actual cover)
