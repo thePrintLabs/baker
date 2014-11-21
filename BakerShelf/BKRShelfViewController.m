@@ -227,14 +227,13 @@
         [[SKPaymentQueue defaultQueue] addTransactionObserver:purchasesManager];
     }
     
-    // Add info button
-    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [infoButton addTarget:self action:@selector(handleInfoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.infoItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
-
     // Remove file info.html if you don't want the info button to be added to the shelf navigation bar
     NSString *infoPath = [[NSBundle mainBundle] pathForResource:@"info" ofType:@"html" inDirectory:@"info"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:infoPath]) {
+        // Add info button
+        UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+        [infoButton addTarget:self action:@selector(handleInfoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        self.infoItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
         self.navigationItem.rightBarButtonItem = self.infoItem;
     }
 }
