@@ -11,6 +11,10 @@ thePrintLabs Baker branch is aimed at updating and adding features the Baker Fra
 
 CHANGELOG
 ---------
+(27/11/2014)
+
+* Fix: recalculating BKRIndex sizes on rotation
+
 (21/11/2014)
 
 * Fix: not initialize the info button if the file info.html doesn't exist

@@ -173,6 +173,7 @@
     BOOL hidden = [self isIndexViewHidden]; // cache hidden status before setting page size
 
     [self setPageSizeForOrientation:toInterfaceOrientation];
+    [self setContentSize];
     [self setActualSize];
     [self setIndexViewHidden:hidden withAnimation:NO];
     [self fadeIn];
@@ -216,7 +217,7 @@
     } else {
         indexHeight = [self sizeFromContentOf:webView].height;
     }
-
+    
     cachedContentSize = indexScrollView.contentSize;
     if (cachedContentSize.width < indexWidth) {
         cachedContentSize = CGSizeMake(indexWidth, indexHeight);
@@ -254,6 +255,25 @@
 
 - (NSString*)indexPath {
     return [self.book.path stringByAppendingPathComponent:fileName];
+}
+
+- (void)setContentSize {
+    
+    UIWebView *webView = (UIWebView *)self.view;
+    id width = self.book.bakerIndexWidth;
+    id height = self.book.bakerIndexHeight;
+    
+    if (width != nil) {
+        indexWidth = (int)[width integerValue];
+    } else {
+        indexWidth = webView.frame.size.width;
+    }
+    
+    if (height != nil) {
+        indexHeight = (int)[height integerValue];
+    } else {
+        indexHeight = indexWidth = webView.frame.size.height;
+    }
 }
 
 @end
