@@ -206,13 +206,13 @@
     id width  = self.book.bakerIndexWidth;
     id height = self.book.bakerIndexHeight;
 
-    if (width != nil) {
+    if ( width != nil && width != [NSNull null] ) {
         indexWidth = (int)[width integerValue];
     } else {
         indexWidth = [self sizeFromContentOf:webView].width;
     }
     
-    if (height != nil) {
+    if ( height != nil && height != [NSNull null] ) {
         indexHeight = (int)[height integerValue];
     } else {
         indexHeight = [self sizeFromContentOf:webView].height;
@@ -263,13 +263,13 @@
     id width = self.book.bakerIndexWidth;
     id height = self.book.bakerIndexHeight;
     
-    if (width != nil) {
+    if ( width != nil && width != [NSNull null] ) {
         indexWidth = (int)[width integerValue];
     } else {
         indexWidth = webView.frame.size.width;
     }
     
-    if (height != nil) {
+    if ( height != nil && height != [NSNull null] ) {
         indexHeight = (int)[height integerValue];
     } else {
         indexHeight = indexWidth = webView.frame.size.height;
